@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Book information</title>
+        <link rel="stylesheet" href="./css/style.css"/>
+        <meta name="bookinfo" content="width=device-width, initial-scale=1.0"/>
+    </h:head>
+    <body>
+        <div class = "main">
+            <div style="float: right; margin-top: -5px; margin-right: 5px; font-size: 12px">
+                <h:form>
+                    <p>
+                        <h:commandLink  value="Back" action="home" actionListener="#{bookInfoBean.clearData}"></h:commandLink>
+                    </p>
+                </h:form>
+            </div>
+            <h2 style="margin-top: 30px">Book Information</h2>
+            <hr class="solid"/>
+            <div style="text-align: left">
+                <p><b>Book ISBN:</b> #{bookInfoBean.ISBN}</p>
+                <p><b>Book title:</b> #{bookInfoBean.title}</p>
+                <h:form>
+                    <p><b>Book author: </b> 
+                        <h:commandLink  value="#{bookInfoBean.author}" action="home" actionListener="#{bookListingBean.loadData}">
+                            <f:param name="filter" value="author" />
+                            <f:param name="value" value="#{bookInfoBean.author}" />
+                        </h:commandLink>
+                    </p>
+                    <p>
+                        <b>Book category: </b>
+                        <h:commandLink  value="#{bookInfoBean.category}" action="home" actionListener="#{bookListingBean.loadData}">
+                            <f:param name="filter" value="category" />
+                            <f:param name="value" value="#{bookInfoBean.category}" />
+                        </h:commandLink>
+                    </p>
+                </h:form>
+                <p><b>Book publishion date:</b> #{bookInfoBean.published}</p>
+                <p><b>Book borrowed by: </b><h:outputText id="borrower" rendered="#{bookInfoBean.borrower!=null}" 
+                                                         value="#{bookInfoBean.borrower}"/></p>
+
+                <h:form id="borrow" rendered="#{request.isUserInRole('ADMIN')}">
+                    <h:inputText value="#{bookInfoBean.username}" required="true" requiredMessage="This field cannot be empty"/>
+                    <p>
+                        <h:commandButton value="Update">
+                            <f:ajax event="click" render="@all" listener="#{bookInfoBean.bookBorrowed}" execute = "borrow"/>
+                        </h:commandButton>
+                        <h:commandButton value="Reset">
+                            <f:ajax event="click" render="@all" listener="#{bookInfoBean.bookReturned(ev)}"/>
+                        </h:commandButton>
+                    </p>
+                    <h:outputText id="message" value="#{bookInfoBean.message}"/>
+                </h:form>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,40 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 20 mar 2022, 22:40:08
+    Author     : swiat
+*/
+
+hr.solid {
+  border-top: 3px solid #bbb;
+}
+
+div.main {
+  text-align: center;
+  align-content: center;
+  margin: auto;
+  width: 50%;
+  border: 1px solid black;
+  padding: 30px;
+  padding-top: 0px;
+  
+}
+
+table.solid {
+    table-layout: fixed;
+    width: 100%;
+}
+
+table.solid, th {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    height: 35px;
+}

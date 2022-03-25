@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Add book</title>
+        <link rel="stylesheet" href="./css/style.css"/>
+        <meta name="add" content="width=device-width, initial-scale=1.0"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    </h:head>
+    <body>
+        <div class="main">
+            <div style="float: right; margin-top: 5px; margin-right: 5px; font-size: 12px">
+                <h:form>
+                    <h:commandLink  value="Back" action="home"></h:commandLink>
+                </h:form>
+            </div>
+            <h2 style="margin-top: 30px">Add a book</h2>
+            <hr class="solid"/>
+            <div style="text-align: left">
+                <h:form id="addForm">
+                    <p>Book ISBN: 
+                        <h:inputText id="ISBNInput" value="#{bookAddingBean.ISBN}" required="true" requiredMessage="This field needs to be entered">
+                            <f:validator binding="#{validationBean.ISBNValidator}"/>
+                        </h:inputText>
+                        <h:message id ="ISBNInputErrorMessage" for="ISBNInput" style="color:red"/>
+                    </p>
+                    <p>Book title: 
+                        <h:inputText id="titleInput" value="#{bookAddingBean.title}" required="true" requiredMessage="This field needs to be entered">
+                            <f:validator binding="#{validationBean.textValidator}"/>
+                        </h:inputText>
+                        <h:message id ="titleInputErrorMessage" for="titleInput" style="color:red"/>
+                    </p>
+                    <p>Book author 
+                        <h:inputText id="authorInput" value="#{bookAddingBean.author}" required="true" requiredMessage="This field needs to be entered">
+                            <f:validator binding="#{validationBean.textValidator}"/>
+                        </h:inputText>
+                        <h:message id ="authorInputErrorMessage" for="authorInput" style="color:red"/>
+                    </p>
+                    <p>Book category 
+                        <h:inputText id="categoryInput" value="#{bookAddingBean.category}" required="true" requiredMessage="This field needs to be entered">
+                            <f:validator binding="#{validationBean.textValidator}"/>
+                        </h:inputText>
+                        <h:message id ="categoryInputErrorMessage" for="categoryInput" style="color:red"/>
+                    </p>
+                    <p>Book publishion date: 
+                        <h:inputText id="publishedInput" value="#{bookAddingBean.published}" required="true" requiredMessage="This field needs to be entered">
+
+                            <f:convertDateTime pattern = "yyyy-mm-dd" />
+                        </h:inputText>
+                        <h:message id ="publishedInputErrorMessage" for="publishedInput" style="color:red"/>
+                    </p>
+                    <h:commandButton value="Add" >
+                        <f:ajax event="click" render="@all" execute="addForm"
+                                listener="#{bookAddingBean.addBook}"/>
+                    </h:commandButton>
+                    <h:outputText id="message" value="#{bookAddingBean.message}" />
+                </h:form>
+            </div>
+        </div>
+
+    </body>
+</html>
